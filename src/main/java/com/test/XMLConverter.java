@@ -79,8 +79,8 @@ public class XMLConverter {
                 }
             }
 
-            String tagVal = object == null ? "null" : (object.toString());
-            return tagName == null ? "\"" + tagVal + "\"" : (tagVal.length() == 0 ? "<" + getType(object) + "/>" : "<" + getType(object) + ">" + tagVal + "</" + getType(object) + ">");
+            String tagVal = null ==object?"":object.toString();
+            return tagVal.length() == 0 ? "<" + getType(object) + "/>" : "<" + getType(object) + ">" + tagVal + "</" + getType(object) + ">";
         } else {
             JSONObject jo = (JSONObject)object;
             if (tagName != null) {
@@ -180,13 +180,13 @@ public class XMLConverter {
 
     private static String getType(Object object){
         if(object instanceof String){
-            return "string";
+            return XMLConstants.OBJ_TYPE_STRING;
         }else if(object instanceof Integer || object instanceof Long || object instanceof Float || object instanceof Double){
-            return "number";
+            return XMLConstants.OBJ_TYPE_NUMBER;
         }else if(object instanceof Boolean){
-            return "boolean";
+            return XMLConstants.OBJ_TYPE_BOOLEAN;
         }else if(object instanceof JSONArray){
-            return "array";
+            return XMLConstants.OBJ_TYPE_ARRAY;
         }
         return "";
     }
